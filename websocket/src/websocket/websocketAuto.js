@@ -7,7 +7,7 @@ websocket.bg=function(){
 F2xExtend(websocket.bg,F2xContainer);
 websocket.bg.prototype.initUI=function(){
 	var s = this;
-	var _d0=Flash2x.s({type:0,data:"EiVhBU8MAAAip3MErDAAAMAAACp3g"},{type:0,color:"#996600"},null);
+	var _d0=Flash2x.s({type:0,data:"EiVhBU8MAAAip3MErDAAAMAAACp3g"},{type:0,color:"#666666"},null);
 	Flash2x.d(_d0,{x:960,y:540,a:1.003,b:0.9934});
 	s.addChild(_d0);
 };
