@@ -70,13 +70,14 @@ websocket.Websocket.prototype.init = function () {
 
 websocket.Websocket.prototype.open = function (username) {
     var s = this;
-    s.socket = new WebSocket('ws://ning.tp8.com:2346');
+    s.socket = new WebSocket('ws://ball.sdningrun.com:2346');
     s.socket.addEventListener('open', function (e) {
         var data = {
             'type': 'login',
             'username': username,
             'x': localStorage.getItem('x') || randomNum(50, 1870),
-            'y': localStorage.getItem('y') || randomNum(50, 1030)
+            'y': localStorage.getItem('y') || randomNum(50, 1030),
+            'direction': localStorage.getItem('direction') || randomNum(1,4)
         };
         s.socket.send(JSON.stringify(data).toString());
     });
@@ -105,7 +106,7 @@ websocket.Websocket.prototype.handleMessage = function () {
                     s.ball = new websocket.ball();
                     s.ball.x = value.msg.x;
                     s.ball.y = value.msg.y;
-                    s.ball.frame = 1;
+                    s.ball.direction = value.msg.direction;
                     s.ball.username.text = s.username.text;
                     s.ballsLayer.addChild(s.ball);
                     s.balls.push(s.ball);
@@ -114,6 +115,7 @@ websocket.Websocket.prototype.handleMessage = function () {
                     var ball = new websocket.ball();
                     ball.x = value.msg.x;
                     ball.y = value.msg.y;
+                    ball.direction = value.msg.direction;
 
                     ball.username.text = value.msg.username;
                     s.ballsLayer.addChild(ball);
@@ -124,28 +126,28 @@ websocket.Websocket.prototype.handleMessage = function () {
                     switch (event.keyCode) {
                         case 38:
                             // up
-                            s.ball.frame = 1;
+                            s.ball.direction = 1;
                             if (s.ball.y - 50 > 0) {
                                 s.ball.y -= s.speed;
                             }
                             break;
                         case 40:
                             // down
-                            s.ball.frame = 3;
+                            s.ball.direction = 3;
                             if (s.ball.y + 50 < 1080) {
                                 s.ball.y += s.speed;
                             }
                             break;
                         case 37:
                             // left
-                            s.ball.frame = 4;
+                            s.ball.direction = 4;
                             if (s.ball.x - 50 > 0) {
                                 s.ball.x -= s.speed;
                             }
                             break;
                         case 39:
                             // right
-                            s.ball.frame = 2;
+                            s.ball.direction = 2;
                             if (s.ball.x + 50 < 1920) {
                                 s.ball.x += s.speed;
                             }
@@ -172,12 +174,13 @@ websocket.Websocket.prototype.handleMessage = function () {
                             }
                             break;
                     }
-                    s.ball.gotoAndStop(s.ball.frame);
+                    s.ball.gotoAndStop(s.ball.direction);
                     var data = {
                         'type': 'move',
                         'username': s.username.text,
                         'x': s.ball.x,
-                        'y': s.ball.y
+                        'y': s.ball.y,
+                        'direction': s.ball.direction
                     };
                     // localStorage.setItem('x',s.ball.x);
                     // localStorage.setItem('y',s.ball.y);
@@ -193,6 +196,8 @@ websocket.Websocket.prototype.handleMessage = function () {
                         var ball = new websocket.ball();
                         ball.x = value.msg[i].x;
                         ball.y = value.msg[i].y;
+                        ball.direction = value.msg[i].direction;
+                        ball.gotoAndStop(ball.direction);
                         ball.username.text = value.msg[i].username;
                         s.ballsLayer.addChild(value.msg[i]);
                         s.balls.push(ball);
