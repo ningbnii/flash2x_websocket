@@ -12,7 +12,10 @@ window.addEventListener("load",function(){
      * 缩放模式
      * 渲染模式
      */
-    var stage=new annie.Stage("annieEngine",1920,1080,30,annie.StageScaleMode.SHOW_ALL,0);
+    var stage=new annie.Stage("annieEngine",640,1136,30,annie.StageScaleMode.EXACT_FIT,0);
+    //默认关闭自动旋转和自动resize
+    // stage.autoResize=true;
+    // stage.autoSteering=true;
     stage.addEventListener(annie.Event.INIT_TO_STAGE,function (e) {
         Flash2x.loadScene("game",function(per){
             //加载进度

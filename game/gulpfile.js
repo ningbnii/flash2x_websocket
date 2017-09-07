@@ -73,7 +73,7 @@ gulp.task('copyResource', function () {
     return gulp.src("resource/**/*").pipe(gulp.dest('released/resource'));
 });
 gulp.task('copyLibs', function () {
-    return gulp.src("libs/**/*").pipe(gulp.dest('released/libs'));
+    return gulp.src("libs/**/*.js").pipe(gulp.dest('released/libs'));
 });
 gulp.task('replaceResJson', function () {
     var rex1 = /[\s\r\n\t]+/g;

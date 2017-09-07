@@ -288,7 +288,8 @@ declare namespace annieUI {
          */
         private _isBreak;
         /**
-         * @property 滚动距离
+         * 滚动距离
+         * @property distance
          * @type {number}
          * @protected
          * @default 0
@@ -325,7 +326,7 @@ declare namespace annieUI {
         currentPageIndex: number;
         /**
          * 页面是否移动
-         * @property currentPageIndex
+         * @property isMoving
          * @type {boolean}
          * @public
          * @default false
@@ -363,7 +364,7 @@ declare namespace annieUI {
         private fSpeed;
         /**
          * 是否点击了鼠标
-         * @property fSpeed
+         * @property isMouseDown
          * @type {boolean}
          * @private
          */
@@ -415,9 +416,9 @@ declare namespace annieUI {
          * @method slideTo
          * @public
          * @since 1.1.1
-         * @param {boolean} isNext 是向上还是向下
+         * @param {number} index 是向上还是向下
          */
-        slideTo(isNext: boolean): void;
+        slideTo(index: number): void;
         /**
          * 用于插入分页
          * @method addPageList
@@ -587,7 +588,6 @@ declare namespace annieUI {
         private _data;
         private downL;
         private _cols;
-        private _colsDis;
         private _disParam;
         private _lastFirstId;
         /**
@@ -596,7 +596,7 @@ declare namespace annieUI {
          * @since 1.0.9
          * @returns {DisplayObject}
          */
-        loadingView: DisplayObject;
+        readonly loadingView: DisplayObject;
         /**
          * 构造函数
          * @method ScrollList
@@ -607,10 +607,9 @@ declare namespace annieUI {
          * @param {number} vH 列表的高
          * @param {boolean} isVertical 是横向滚动还是纵向滚动 默认是纵向
          * @param {number} cols 分几列，默认是1列
-         * @param {number} colsDis 列之间的间隔，默认为0
          * @since 1.0.9
          */
-        constructor(itemClassName: any, itemWidth: number, itemHeight: number, vW: number, vH: number, isVertical?: boolean, cols?: number, colsDis?: number);
+        constructor(itemClassName: any, itemWidth: number, itemHeight: number, vW: number, vH: number, isVertical?: boolean, cols?: number);
         /**
          * 更新列表数据
          * @method updateData
@@ -656,7 +655,7 @@ declare namespace annieUI {
      */
     class DrawingBoard extends annie.Bitmap {
         protected context: CanvasRenderingContext2D;
-        private _isMouseDown;
+        protected _isMouseDown: boolean;
         /**
          * 绘画半径
          * @property drawRadius
@@ -734,9 +733,6 @@ declare namespace annieUI {
         cancel(step?: number): boolean;
     }
 }
-/**
- * Created by anlun on 2017/5/24.
- */
 /**
  * Created by anlun on 2017/5/24.
  */
